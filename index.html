@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="description"
+    content="MovieHUB — discover, stream and download your favorite movies in one beautiful app." />
+  <title>MovieHUB — Your Movie Universe</title>
+  <style>
+    :root {
+      --bg: #080809;
+      --surface: #111113;
+      --surface-2: #17171a;
+      --text: #fff;
+      --muted: #a7a7ad;
+      --red: #ef233c;
+      --red-2: #ff3b52;
+      --yellow: #ffd166;
+      --border: rgba(255, 255, 255, .09);
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 78% 8%, rgba(239, 35, 60, .16), transparent 28rem),
+        radial-gradient(circle at 15% 35%, rgba(255, 209, 102, .07), transparent 22rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: auto
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8, 8, 9, .72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 850;
+      letter-spacing: -.5px
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      background: var(--red);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 30px rgba(239, 35, 60, .28)
+    }
+
+    .logo:after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 11px solid #fff;
+      margin-left: 2px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      color: #c5c5ca;
+      font-size: 14px
+    }
+
+    .nav-links a:hover {
+      color: #fff
+    }
+
+    .nav-btn,
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 12px;
+      font-weight: 750;
+      transition: .2s ease
+    }
+
+    .nav-btn {
+      padding: 10px 15px;
+      background: #fff;
+      color: #09090a;
+      font-size: 13px
+    }
+
+    .nav-btn:hover,
+    .hero-btn:hover {
+      transform: translateY(-2px)
+    }
+
+    .hero {
+      padding: 92px 0 75px
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 65px;
+      align-items: center
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #ffdfe3;
+      background: rgba(239, 35, 60, .10);
+      border: 1px solid rgba(239, 35, 60, .22);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 750;
+      margin-bottom: 20px
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red)
+    }
+
+    h1 {
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -4px;
+      max-width: 760px
+    }
+
+    h1 span {
+      color: var(--red)
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 620px;
+      margin: 24px 0 30px
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .hero-btn {
+      padding: 14px 19px;
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(239, 35, 60, .22)
+    }
+
+    .secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: none
+    }
+
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative
+    }
+
+    .glow {
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      background: rgba(239, 35, 60, .18);
+      filter: blur(70px);
+      border-radius: 50%
+    }
+
+    .phone {
+      position: relative;
+      width: min(300px, 72vw);
+      aspect-ratio: 9/18.5;
+      background: #0d0d0f;
+      border: 7px solid #242428;
+      border-radius: 38px;
+      padding: 8px;
+      box-shadow: 0 35px 90px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .05);
+      transform: rotate(3deg)
+    }
+
+    .screen {
+      height: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(150deg, #281116 0%, #101014 48%, #241010 100%);
+      padding: 20px 14px
+    }
+
+    .notch {
+      width: 92px;
+      height: 23px;
+      border-radius: 0 0 15px 15px;
+      background: #09090a;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    .app-top {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .app-name {
+      font-weight: 850;
+      font-size: 19px
+    }
+
+    .avatar {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      background: #2a2a2e
+    }
+
+    .fake-poster {
+      height: 185px;
+      border-radius: 18px;
+      margin-top: 20px;
+      background: linear-gradient(145deg, #b91c32, #311016 55%, #080809);
+      position: relative;
+      overflow: hidden
+    }
+
+    .fake-poster:after {
+      content: "MOVIE";
+      position: absolute;
+      bottom: 15px;
+      left: 14px;
+      font-size: 31px;
+      font-weight: 950;
+      letter-spacing: -2px
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 12px
+    }
+
+    .mini {
+      height: 100px;
+      border-radius: 11px;
+      background: linear-gradient(145deg, #37373d, #151519)
+    }
+
+    .section {
+      padding: 82px 0
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin-bottom: 34px
+    }
+
+    .kicker {
+      color: var(--red-2);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 1.8px;
+      text-transform: uppercase
+    }
+
+    h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-top: 10px
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin-top: 13px
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px
+    }
+
+    .card {
+      padding: 25px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .018));
+      border: 1px solid var(--border);
+      border-radius: 20px
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: rgba(239, 35, 60, .12);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      margin-bottom: 18px
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .download {
+      padding: 50px;
+      border-radius: 28px;
+      border: 1px solid rgba(239, 35, 60, .22);
+      background: linear-gradient(135deg, rgba(239, 35, 60, .13), rgba(255, 255, 255, .025));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px
+    }
+
+    .download h2 {
+      font-size: clamp(28px, 4vw, 43px)
+    }
+
+    .download p {
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 650px
+    }
+
+    .download small {
+      display: block;
+      color: #777;
+      margin-top: 12px;
+      font-size: 11px
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px
+    }
+
+    .step-num {
+      font-size: 12px;
+      color: var(--red-2);
+      font-weight: 900;
+      margin-bottom: 10px
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: #777;
+      font-size: 13px
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    @media(max-width:850px) {
+      .nav-links {
+        display: none
+      }
+
+      .hero {
+        padding-top: 62px
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 55px
+      }
+
+      .hero-copy {
+        text-align: center
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto
+      }
+
+      .actions {
+        justify-content: center
+      }
+
+      .phone-wrap {
+        order: 2
+      }
+
+      .features,
+      .steps {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .download {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    @media(max-width:560px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max))
+      }
+
+      .nav-inner {
+        height: 64px
+      }
+
+      .nav-btn {
+        padding: 9px 12px
+      }
+
+      h1 {
+        letter-spacing: -2.8px
+      }
+
+      .hero p {
+        font-size: 16px
+      }
+
+      .features,
+      .steps {
+        grid-template-columns: 1fr
+      }
+
+      .section {
+        padding: 62px 0
+      }
+
+      .download {
+        padding: 28px 22px
+      }
+
+      .footer-inner {
+        flex-direction: column
+      }
+
+      .phone {
+        width: 245px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#"><span class="logo"></span>MovieHUB</a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#how">How it works</a>
+      </nav>
+      <a class="nav-btn" href="https://expo.dev/artifacts/eas/xBsVQSXnkfzWglSSHtx1Y8KCZ6WI7cqm6ufsGCEciwM.aab"
+        download>Get App</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot"></span> YOUR MOVIE UNIVERSE</div>
+          <h1>Movies. Downloads. <span>One HUB.</span></h1>
+          <p>Discover your next movie, explore quality options, and keep your downloads organized — all inside a clean,
+            modern MovieHUB experience.</p>
+          <div class="actions">
+            <a class="hero-btn" href="https://expo.dev/artifacts/eas/xBsVQSXnkfzWglSSHtx1Y8KCZ6WI7cqm6ufsGCEciwM.aab"
+              download>↓ &nbsp; Download MovieHUB</a>
+            <a class="hero-btn secondary" href="#features">Explore features</a>
+          </div>
+        </div>
+
+        <div class="phone-wrap" aria-label="MovieHUB app preview">
+          <div class="glow"></div>
+          <div class="phone">
+            <div class="screen">
+              <div class="notch"></div>
+              <div class="app-top"><span class="app-name">MovieHUB</span><span class="avatar"></span></div>
+              <div class="fake-poster"><span></span></div>
+              <div style="margin-top:13px;font-weight:800;font-size:15px">Featured Movies</div>
+              <div class="mini-row">
+                <div class="mini"></div>
+                <div class="mini"></div>
+                <div class="mini"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Built for movie lovers</div>
+          <h2>Everything you need, without the clutter.</h2>
+          <p>A focused movie experience designed around discovery, downloads, and a smooth mobile UI.</p>
+        </div>
+        <div class="features">
+          <article class="card">
+            <div class="icon">⌕</div>
+            <h3>Discover Faster</h3>
+            <p>Browse and find movies through a simple, focused interface built for quick exploration.</p>
+          </article>
+          <article class="card">
+            <div class="icon">↓</div>
+            <h3>Quality Downloads</h3>
+            <p>Choose from available download qualities and start your download from the movie page.</p>
+          </article>
+          <article class="card">
+            <div class="icon">▣</div>
+            <h3>Download Center</h3>
+            <p>Keep track of active and completed downloads from one dedicated place in the app.</p>
+          </article>
+          <article class="card">
+            <div class="icon">◐</div>
+            <h3>Light & Dark</h3>
+            <p>Switch between a bright interface and a cinematic dark experience to match your preference.</p>
+          </article>
+          <article class="card">
+            <div class="icon">⚡</div>
+            <h3>Made for Mobile</h3>
+            <p>Responsive layouts, touch-friendly controls, and a design optimized for modern phones.</p>
+          </article>
+          <article class="card">
+            <div class="icon">✦</div>
+            <h3>Clean Experience</h3>
+            <p>No complicated setup — open MovieHUB, find what you want, and get moving.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="section">
+      <div class="container">
+        <div class="download">
+          <div>
+            <div class="kicker">Get MovieHUB</div>
+            <h2>Your next movie is one tap away.</h2>
+            <p>Download the current Android build and experience the MovieHUB app on your device.</p>
+            <small>Build: Android AAB • Hosted on Expo</small>
+          </div>
+          <a class="hero-btn" href="https://expo.dev/artifacts/eas/xBsVQSXnkfzWglSSHtx1Y8KCZ6WI7cqm6ufsGCEciwM.aab"
+            download>↓ &nbsp; Download Build</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Simple flow</div>
+          <h2>Find it. Choose it. Download it.</h2>
+        </div>
+        <div class="steps">
+          <article class="card">
+            <div class="step-num">01 / DISCOVER</div>
+            <h3>Find a movie</h3>
+            <p>Explore the movie catalog and open the title you want.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">02 / SELECT</div>
+            <h3>Pick a quality</h3>
+            <p>Choose from the qualities available for that movie.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">03 / DOWNLOAD</div>
+            <h3>Manage your download</h3>
+            <p>Start the download and keep an eye on its progress from Downloads.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 MovieHUB. Built for a better movie experience.</span>
+      <span>MovieHUB</span>
+    </div>
+  </footer>
+</body>
+
+</html>
